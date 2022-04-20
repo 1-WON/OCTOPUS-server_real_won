@@ -1,0 +1,15 @@
+/octopus-ui/build/
+/octopus-ui/node_modules
+/octopus-ui/.env.local
+/octopus-ui/.env
+/octopus-cube-ui/build/
+/octopus-cube-ui/node_modules
+/octopus-cube-ui/.env.local
+/octopus-cube-ui/octopus-ui/.env
+/octopus-api/release/bin/octopus-server
+/octopus-api/release/bin/octopus-server-mac
+/octopus-api/go.sum
+/octopus-api/release/log/octopus_*.log
+/octopus-api/release/public
+/octopus-api/release/public-cube
+

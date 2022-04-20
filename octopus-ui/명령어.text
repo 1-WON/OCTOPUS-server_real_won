@@ -1,0 +1,220 @@
+
+http://15.164.222.110/#/login  << 메인서버 주소
+
+
+back end  ( golang )
+
+실행명령어 :  go run 파일명.go     ( go로 시작하는 명령어는 터미널에서 실행함)
+  // start run 파일명.go   -> (명령프롬포트창을띄워 거기서 실행하게함.)
+
+빎드명령어 :  go build -o (파일위치) (빌드파일명)
+
+ ex) go build -o ./release/bin/octopus-server.exe server.go
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+front ( node.js react)
+
+서버 설치 : npm install -> npm 환경 구축  
+
+서버 실행 : npm run start 
+( package.json -> scripts로 지정해서 명령어 만들어낼수있습니다.)
+    ex) react-scripts-start -> npm서버실행해서 로컬에 서버띄우기
+
+빌드 실행 : npm run build 
+마찬가지로 scripts 지정가능 
+    ex)   "buildW": "react-scripts build ",
+
+
+수석님 npm window버전 예제
+{
+  "name": "octopus-ui",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@coreui/coreui": "^2.1.16",
+    "@coreui/icons": "0.3.0",
+    "@coreui/react": "^2.5.8",
+    "@toast-ui/react-grid": "^4.16.1",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^12.8.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0",
+    "reactstrap": "^8.7.1",
+    "react-scripts": "4.0.3",
+    "axios": "^0.21.1",
+    "web-vitals": "^1.1.1",
+    "simple-line-icons": "^2.5.5",
+    "font-awesome": "^4.7.0",
+    "node-sass": "^4.14.1",
+    "moment": "^2.29.1",
+    "react-datepicker": "^3.3.0"
+  },
+  "scripts": {
+	"start": "cp ./.env.localhost ./.env && react-scripts start",
+    "startw": "copy /Y \"./.env.localhost\" \"./.env\" && react-scripts start",
+    "build": "cp ./.env.prod ./.env && react-scripts build && rm -rf ../octopus-api/release/public && mv ./build ../octopus-api/release/public",
+	"buildw": "copy /Y \"./.env.prod\" \"./.env\" && react-scripts build && del /s/q \"../octopus-api/release/public\" && move /Y \"./build\" \"../octopus-api/release/public\"",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2022-04-14 현재상황
+
+back build 완료 
+go build -o ./release/bin/octopus-server.exe server.go 
+
+컬럼필요한거 추가하고 추가,수정,삭제,조회 까지는 전부 설계완료 
+
+
+
+front 
+
+가명처리 / 특이정보처리 페이지 나눠서 추가 수정 할수 있도록 설계
+ㄱ. 가명처리, 특이정보처리 별 탬플릿 defaultvalue 값 별로 설정해줘야함
+ㄴ. ㄱ 처리완료후 유효성검사 처리해야함  
+
+해야하는거 GIN으로 처리하는 구동방식 정리 , 
+git 내꺼 브런치 따기 
+
+
+금일 완료한거  -> back , front build하는거 성공 
+golang -> go build -o ./release/bin/octopus-server.exe server.go   ( ../bin 아래 서버실행파일(exe)생성완료  운영에 넘길거라 hot reload 필요없음 )
+nodejs -> npm run build ../경로  (scripts에서 react-scripts build ../경로 지정하여 성공)  -> pubilc 이라는 pakeage 만들기 성공 
+
+
+git <-> vscode  octopus-server 연동 성공 
+
+pscp로 로컬 <->서버 파일 주고받기 완료 
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+**git 연결 방법  > git bash
+
+0. 계정이 권한이 있는지도 잘 확인해 보아야합니다
+
+1. 클론 할 레포로 이동해서 초록색code버튼 누른 뒤 HTTPS주소 복사
+
+2. 레포를 저장할 로컬위치로 가서 git bash 실행
+
+3. 클론뜨기 : git clone [HTTPS주소]
+
+4. 브랜치 생성 : git branch [브랜치명]    -> 이게안될때는 커밋한번 하고 실행 
+
+5. 브랜치 변경 : git switch [브랜치명]
+
+6. 레포에 md파일 추가  (테스트용 변경점)
+
+7. git add .
+
+8. git commit -m [""]
+
+9. git push origin [브랜치명] --> git push origin master로 하면 큰일남
+
+
+
+git 연결 방법  > vscode에서 할떄 
+
+git clone으로 소스복제해오는거는 똑같음 -> 소스제어에서  1-WON 관련해서 분기선택할수있음 - won 부터 하고 1차 확인받으면 develop에 머지하고 나중에 커밋 
+
+커밋하는거는 잘생각해둬야함  좌측 하단 아이디 확인하고 커밋누르고 -> 분기선택 할수있을거임 거기서 won으로 갈수있게 잘 설정해둔뒤에 
+
+커밋 메시지적고 하면 분기동기화 하면 됩니다.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+putty <-> pscp 관련 방법
+
+putty실행 -> 슬랙에 정보 ip / id 확인후 key 파일 ssh-> auth 여기에등록한뒤에실행 
+
+pscp 세팅 -> cmd -> putty가있는 경로 ( C:\Program Files (x86)\PuTTY ) 위치해서 pscp /? 하면 성공
+
+폴더전송 명령어  pscp (option) [업로드할 파일, 폴더 directory]* hostname@ip:[업로드를 할위치 directory]
+
+바탕화면에 ppk파일 실행한번 하고 옮겨줘야합니다.
+
+pscp -r C:\Users\chong\Desktop\won* nodebuilder@15.164.222.110:/home/nodebuilder // 디렉토리 전송
+pscp C:\Users\chong\Desktop\won* nodebuilder@15.164.222.110:/home/nodebuilder   // 파일전송
+
+
+
+IP : 15.164.222.110
+port : 22
+계정 : nodebuilder / nodebuilder2022
+putty 접속 후, SSH > AUTH 키 파일 설정
+
+
+-- 리눅스 명령어 정리하고  
+
+rm -> 파일 삭제 
+ex)   rm *csv    csv파일 전부 삭제 
+
+r
+
+
+현재 실행중인 프로세스 확인 
+ps -f   => 프로세스 상태 정보를 모두 표시해주는 옵션 
+
+ps -e   => 전체 프로세스를 보여주는 옵션
+
+
+
+파일 및 디렉토리 삭제
+
+파일삭제 -> rm "파일명"
+폴더삭제 -> rmdir "파일명"
+
+#rm 명령어 옵션
+rm -r  : 파일 디렉토리 함께 삭제하기
+rm -f  : 파일 유무와 상관없이 삭제
+rm -v  : 어떻게 완료되었는지 설명하기
+
+rm -rf "파일명"   => 파일의 유무와상관없이 삭제
+
+ exe 파일 실행 / 실행중인거 / 종료 확인 
+
+실행 명령어 -> ./"파일명.확장자"
+
+ 
+
+실행중인 프로세스 찾기 -> ps -ef
+
+PID num으로 프로세스 ID값 확인
+
+실행중인 프로세스 종료 -> kill 9 "PID명"
+
+
+
+
+
+

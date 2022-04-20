@@ -1,0 +1,29 @@
+// Here you can add other styles
+.nav-dropdown-items .nav-link{
+  padding-left: 30px !important;
+}
+
+.react-datepicker-popper{
+  z-index: 1000 !important;
+}
+
+.react-datepicker-wrapper {
+  width: 120px;
+}
+
+.react-datepicker-wrapper input[type=text]{
+  width: 100%;
+}
+
+.tui-grid-summary-area .tui-grid-cell {
+  text-align: right;
+}
+
+#spinner-modal > .modal-content {
+  border: 0 !important;
+  background-color: transparent !important;
+}
+
+.popover {
+  max-width: 450px !important;
+}
